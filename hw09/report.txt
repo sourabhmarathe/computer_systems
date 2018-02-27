@@ -1,0 +1,69 @@
+Sourabh Marathe
+
+Run on CCIS servers
+
+I took the median of 5 test runs for each scenario. Results are displayed in 
+the table below. 
+
+Start: 4611686018427387904
+End: 4611686018427387954 
+This is the test of factoring 50 numbers. 
+
+Threads/Processes		Process Time(s)		Thread Time(s)	Parallel Speedup
+1						33.306				65.791			1.975
+4						13.471				23.500			1.744
+16						8.713				16.241			1.864
+
+REPORT
+This data indicates that processes runs much faster than the threads. 
+However, in theory, this should not be the case. If we look at how threads 
+and processes are created in the operating system, we should expect threads 
+to provide the speedup. 
+
+Threads share a single memory space and need to make sure that multiple 
+threads don't interfere on shared memory in programs. Threads do run 
+simultaneously and are fairly easy to create because you don't need 
+instantiate a whole new program space for each thread.
+
+Processes, on the other hand, are essentially entirely new programs. They, 
+like threads, do run simultaneously. However, the main difference is that 
+they require much more overhead to start up. With processes, if there is no 
+shared memory, you don't run into the same problems of having race 
+conditions because the processes are completely independent of each other. 
+
+So there must be a good explanation for why, in this case, the threads were 
+almost twice as slow as the processes. One explanation revolves around how 
+shared memory is treated in the threads and processes programs. In the 
+threads program, mutex are used to ensure shared data isn't simultaneously 
+accessed by multiple threads. This leads to only one thread being able to 
+access the input queue at a time. The process program, on the other hand, 
+makes use of semaphores. Semaphores allow for simultaneous access to the 
+queues; semaphores instead just make sure the processes are not accessing a 
+"checked out" job in the iqueue or oqueue. This results in a significant 
+speed boost for the processes program. Another reason the processes program 
+is faster than the threads program is that the processes program has a 
+dedicated output process. That means outputs are immediately reported to the 
+shell where as the threads program waits for the iqueue to empty out before 
+processesing the oqueue. Since I/O uses up more time to execute and there is 
+a good amount of I/O in the programs, this adds up to make another reason 
+for the processes program to be faster than the threads program. Finally, a 
+reason for the threads program being slower than the processes program 
+involves the fact that the threads are running in separate cores, but need 
+to access a shared memory space. This results in more expensive execution 
+since threads in separate cores need to access memory in another core to 
+run. Processes have to also share memory, but they share less. Instead, they 
+have their own dedicated memory for most of the program, meaning processes 
+on different cores will be able to execute their own code without having to 
+go to another core to retrieve memory. This results in a boost to the speed 
+of a process program. 
+
+In summary, the three reasons for the process program being faster than the 
+thread program are: 1) the data structure protecting shared memory for the 
+thread program allows only one thread to access memory at a time whereas the 
+data structure for the process program allows for simultaneous access across 
+the entire queue, 2) the I/O for the process program occurs in parallel 
+whereas the thread program happens at the end after the threads are done 
+executing, and 3) threads share a memory space, so threads in different 
+cores will need to "travel" farther to access their own program memory while 
+processes "clone"  their original memory and will only have to "travel" far 
+for shared memory only.  

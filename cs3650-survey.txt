@@ -1,0 +1,94 @@
+
+We're trying out some new stuff in this semester of CS3500, so I'd like your
+feedback on what worked well and what has worked less well.
+
+== Assignments ==
+
+We've done homeworks 1 - 10 at this point. Of those...
+
+1. Which homework was the most interesting? Why?
+I found the threads and processes homework to be the most interesting and the 
+assembly homeworks to be interesting. They seemed to interface most with the 
+hardware and revealed a bit about how the computer architecture relates to 
+software.
+
+2. Which homework was the least interesting? Why?
+I did not find the optimal memory allocator, sorting in C and shell homeworks 
+to be as interesting. They seemed to be artificial in the sense that we were 
+just building software on top of already functioning software. 
+
+3. Which homework did you spend the most time stuck on? What got you stuck?
+I spent the most time stuck on the shell, it was piping.
+
+4. Do you have any suggestions for things that would have helped you spend less
+time stuck?
+Not really, just need to spend some time on it to get it right. 
+
+5. Any other comments or suggestions on the homework in this course?
+No, the homeworks were pretty fair. 
+
+
+== Bottlenose ==
+
+1. How has autograding improved your homework experience?
+Lets me know when I have done something right.
+
+2. How has autograding harmed your homework experience?
+It can be frustrating when you can't get something to work on the autograder 
+but it does work on your end.
+
+3. What would you suggest to improve autograding?
+It's pretty good now, just let students challenge the autograder if they think 
+it is wrong.
+
+4. Aside from autograding, what in Bottlenose works well?
+Pretty much everything, it is easy to use.
+
+5. Aside from autograding, what in Bottlenose works poorly? How would you
+suggest we improve it?
+Instead of posting .zip, let us upload entire folders
+
+
+== Course ==
+
+1. What do you like about the course structure?
+No tests and homeworks are pretty easy.
+
+2. What do you dislike about the course structure?
+Would like to spend less time on individual system calls and more time on the 
+general structure of computer systems. 
+
+3. Do you think the grading structure in the course works well and is fair? If
+not, what would you suggest to improve it?
+I would say it is good, it might be better to have a mid term or final to help 
+overloading all the grade into one category but there's no reason you 
+shouldn't be able to do the homework
+
+4. What can I do in the remainder of the semester to help you succeed in the
+course?
+Give us more direct advice on the homework.
+
+
+5. What can you do in the remainder of the semester to help you succeed in the
+course?
+Do the readings.
+
+6. Is going over homework solutions in class before the due date help or harm
+your educational experience?
+I think it helps in that homeworks are less stressful, but also harmful in 
+that it becomes more about the specific homework problem and not the theory 
+behind the homework.
+
+7. What question is this survey missing? What would your answer be?
+I don't think its missing any.
+
+8. What other comments or suggestions do you have?
+Overall my biggest problem with NEU in general is the focus is way too much on 
+creating good workers out of people. We need the university, as students, to 
+focus more on theory. In the end, we'll learn the practical details on co-op. 
+Teach us the theory and inaccessible materials in class. For example, in this 
+class, I would say focus more on computer systems as a theory and have 
+homeworks geared toward theory. Also, give more time for classroom discussion 
+about the theory/readings in the homework. 
+
+

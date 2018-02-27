@@ -1,0 +1,53 @@
+Sourabh Marathe
+
+Run on CCIS servers
+
+I took the median of 5 runs of each scenario. I displayed
+these results in the table below, and graph.png. 
+
+TABLE
+
+start = 1
+count = 1600000
+
+Threads			REAL		USER		SYS
+1			0m3.933s	0m8.205s	0m1.937s
+4			0m10.821s	0m16.281s	0m26.809s
+16			0m14.230s	0m16.075s	0m29.542s
+Slow down from 1 thread to 16 threads is about 3.62
+
+start = 1000000000000000
+count = 150
+
+Threads 		REAL		USER		SYS
+1			0m3.168s	0m3.167s	0m0.002s
+4			0m0.973s	0m3.733s	0m0.002s
+16			0m0.466s	0m5.069s	0m0.005s
+Speed up from 1 thread to 16 threads is about 6.8x
+
+
+REPORT
+
+In the first scenario, it is shown that the overhead from managing
+threads slows it down enough to cause additional threads to be 
+harmful to the optimal performance of the program. This is due to 
+the fact that the threads need a lot of time to hand off the mutex
+objects, and signal between each other to wake each other and fall
+asleep. However, the amount of time needed to factor small numbers 
+is very small, and because of this, having more threads ends up 
+reducing the performance of the program.
+
+On the other hand, when the problem size is big, more time is spent
+actually executing the problem in threads as opposed to managing 
+memory and mutex objects. As a result, with larger problems, there
+is a boost to performance since computation can be more properly 
+parallelized. 
+
+In conclusion, this project demonstrates the need to think carefully
+about how optimization by threads is being carried out. If a program
+spends less time executing than it would take to manage mutex objects
+and threads, then it might not make sense to use threads. On the other
+hand, if the problem size is really big, then it might make sense to 
+use threads to perform the task concurrently, to prevent blocking of 
+other smaller tasks that do not rely on the data within the larger 
+task.

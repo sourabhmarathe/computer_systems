@@ -1,0 +1,67 @@
+Sourabh Marathe
+
+OPERATING SYSTEM: macOS Sierra
+CENTRAL PROCESSING UNIT: 2.7 GHz Intel Core i5
+RANDOM ACCESS MEMORY: 8 GB 1867 MHz DDR3
+
+RESULTS (in seconds)
+
+Chunk size			1000		100000		1000000
+System allocator	0.001		0.141		1.468
+HW_06, 1k			0.001		76.766      10+ minutes
+Opt, 1k				0.001		0.099		1.329
+HW_06, 65k			0.000		0.017		0.639		
+Opt, 65k			0.000		0.024		0.264
+HW_06, 1000k		0.000		0.016		0.655
+Opt, 1000k			0.000		0.027		0.280
+
+DISCUSSION
+There are two relationships that become very apparent upon examination of the
+presented data. 
+
+The first relationship is that there is a relationship between chunk
+size and the amount of time needed to execute the program. The tradeoff here
+is that the program will finish faster with a higher chunk size, but in 
+exchange, it will reserve more memory from the heap that the program may or
+may not ever use up. This occurs when a chunk is allocated for a node in the 
+linked list, but is not fully used up during program execution. Of course, this
+leads to interesting considerations when considering how to optimize allocation
+of memory in data. When one needs a lot of memory and speed, a large chunk size
+may be ideal; on the other hand, if there is not much memory to spare and one
+is allocating small bits of memory, then it may make more sense to save memory
+on a smaller chunk size. 
+
+The second relationship seen in the data has to do with the performance of the
+optimum allocator when compared to the system and hw06 allocators. The optimum
+allocator outperformed the system and hw06 allocators on a scale of about 2x.
+(Besides the 1,000,000 case where the hw06 allocator takes an unknown amount of 
+time). This is due to the fact that optimum allocator is tailored to the linked
+list data structure and does not need to make system calls as frequently as the
+other two allocators, does not need to coalesce and can quickly access its own
+free space due to the fact that it is a stack as opposed to the hw06's linked
+list. These three reasons combine to reduce the amount of code the optimum 
+allocator has to execute which in turn leads to a significant and notable speed
+up. 
+
+In sum, the two main relationships revealed by the data are (1) chunk size and
+speed and (2) the optimum allocator and speed when compared to the hw06 and 
+system allocator. These relationships reveal critical tradeoffs to consider when
+designing an allocator. For starters, one should realize the heap and its wider
+relationship with the program space. The chunk size parameter makes this most
+apparent. With a large chunk size, a lot more unused memory could be left on the
+heap, which could be a problem for some hardware systems. On the other hand, a
+smaller chunk size affords one more speed by using fewer systems calls. Second,
+one should consider the algorithmic properties of the program being allocated.
+In this case, where only a linked list was being used, a tremendous boost was
+provided by tailoring the allocator to a linked list data structure. In 
+conclusion, allocators reveal an important set of considerations in computer 
+systems: beware of how memory is being stored, and where it is being stored at
+all times. 
+
+
+Note on the graph: I reported the time needed to complete ./sum_[program] 100000
+for each allocator. Since the hw06 allocator at 1k chunk took up so much time,
+it ended up creating such an odd looking graph. That being said, all the data is
+graphed properly, and it is simply a good indicator of the roles chunk size and
+optimization can play in building a good (or potentially awful) memory
+allocator.
